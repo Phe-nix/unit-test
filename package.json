@@ -1,19 +1,16 @@
 {
-  "name": "unit-test",
+  "name": "ts-merge-project",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Merge three arrays project with TypeScript and Jest",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/index.ts",
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.0",
-    "jest": "^29.5.0",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.6.1",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.3.3"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "typescript": "^5.2.2"
+  }
 }

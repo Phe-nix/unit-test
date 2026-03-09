@@ -1,50 +1,32 @@
 export function merge(
-  collection_1: number[],
-  collection_2: number[],
-  collection_3: number[]
+    collection_1: number[],
+    collection_2: number[],
+    collection_3: number[]
 ): number[] {
-  const result: number[] = [];
-  let i = 0; 
-  let j = collection_2.length - 1; 
-  let k = 0; 
+    const reversed2 = collection_2.slice().reverse();
 
-  const temp: number[] = [];
+    const result: number[] = [];
+    let i = 0, j = 0, k = 0;
 
+    while (i < collection_1.length || j < reversed2.length || k < collection_3.length) {
+        const candidates: {value: number, source: 'c1'|'c2'|'c3'}[] = [];
 
-  while (i < collection_1.length && j >= 0) {
-    if (collection_1[i] < collection_2[j]) {
-      temp.push(collection_1[i++]);
-    } else {
-      temp.push(collection_2[j--]);
+        if (i < collection_1.length) candidates.push({value: collection_1[i], source: 'c1'});
+        if (j < reversed2.length) candidates.push({value: reversed2[j], source: 'c2'});
+        if (k < collection_3.length) candidates.push({value: collection_3[k], source: 'c3'});
+
+        let minCandidate = candidates[0];
+        for (const c of candidates) {
+            if (c.value < minCandidate.value) {
+                minCandidate = c;
+            }
+        }
+
+        result.push(minCandidate.value);
+        if (minCandidate.source === 'c1') i++;
+        else if (minCandidate.source === 'c2') j++;
+        else k++;
     }
-  }
 
-  while (i < collection_1.length) {
-    temp.push(collection_1[i++]);
-  }
-
-  while (j >= 0) {
-    temp.push(collection_2[j--]);
-  }
-
-  let m = 0;
-  while (m < temp.length && k < collection_3.length) {
-    if (temp[m] < collection_3[k]) {
-      result.push(temp[m++]);
-    } else {
-      result.push(collection_3[k++]);
-    }
-  }
-
-  while (m < temp.length) {
-    result.push(temp[m++]);
-  }
-
-  while (k < collection_3.length) {
-    result.push(collection_3[k++]);
-  }
-
-  return result;
+    return result;
 }
-
-console.log(merge([1, 3, 5], [6, 4, 2], [7, 8, 9])); // Output: [1, 2, 3, 4, 5, 6, 7, 8, 9]
